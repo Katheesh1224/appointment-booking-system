@@ -1,0 +1,195 @@
+.body{
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+    align-items: center;
+    justify-content: center;
+
+    .welcome-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        margin: 10px 0 5px 10px;
+        background-color: white;
+        width: calc(80vw - 80vw/3);
+        height: calc(90vh - 60vh - 20px);
+        border-radius: 10px;
+
+        img{
+            width: 300px;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+
+        h1{
+            font-size: 1.5em;
+            margin: 10px 60px;
+            text-align: center;
+        }
+
+    }
+
+    .appointment-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        margin: 5px 0 10px 10px;
+        background-color: white;
+        width: calc(80vw - 80vw/3);
+        height: calc(90vh - 90vh/3 - 10px);
+        border-radius: 10px;
+
+        .header{
+            padding: 20px 0;
+            width: 45vw;
+
+            h2{
+                font-size: 1em;
+            }
+        }
+
+        .appointment{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.200);
+            width: 45vw;            
+
+            .date{
+                display: flex;
+                flex-direction: column;
+                align-items: left;
+                justify-content: left;
+                flex: 1;
+                font-size: 0.8em;
+                color: rgba(0, 0, 0, 0.80);
+            }
+
+            .reason{
+                display: flex;
+                flex-direction: column;
+                align-items: left;
+                justify-content: left;
+                flex: 2;
+                font-size: 0.8em;
+            }
+
+            .time{
+                display: flex;
+                flex-direction: column;
+                align-items: end;
+                justify-content: end;
+                flex: 1;
+                font-size: 0.8em; 
+                color: rgba(0, 0, 0, 0.80); 
+                margin-right: 15px;          
+            }
+        }
+
+        .add-button{
+            width: 300px;
+            height: 40px;
+            background-color: #4e54c8;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            margin-top: 20px;
+            justify-content: center;
+        }
+    }
+}
+
+
+
+@media (max-width: 942px) {
+    .welcome-container,
+    .appointment-container {
+        width: 90vw; 
+        height: auto; 
+        padding: 15px;
+    }
+
+    .welcome-container img {
+        width: 200px; 
+        height: 40px;
+    }
+
+    .welcome-container h1 {
+        font-size: 1em;
+        margin: 10px 40px;
+    }
+
+    .appointment-container .header {
+        width: 80vw; 
+    }
+
+    .appointment {
+        flex-direction: column; 
+        width: 80vw;
+        padding: 10px 0;
+    }
+
+    .appointment .date,
+    .appointment .reason,
+    .appointment .time {
+        align-items: center; 
+        text-align: center;
+        width: 100%;
+        font-size: 0.9em;
+    }
+
+    .add-button {
+        width: 250px; 
+        height: 35px;
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    .welcome-container,
+    .appointment-container {
+        width: 95vw;
+        padding: 10px;
+    }
+
+    .welcome-container img {
+        width: 200px;
+        height: 70px;
+    }
+
+    .welcome-container h1 {
+        font-size: 1em;
+        margin: 5px 20px;
+    }
+
+    .appointment-container .header {
+        width: 100%;
+        text-align: center;
+    }
+
+    .appointment {
+        flex-direction: column;
+        width: 95vw;
+        padding: 5px 0;
+    }
+
+    .appointment .date,
+    .appointment .reason,
+    .appointment .time {
+        font-size: 0.8em;
+        text-align: center;
+    }
+
+    .add-button {
+        width: 200px;
+        height: 30px;
+        font-size: 0.85em;
+    }
+}
