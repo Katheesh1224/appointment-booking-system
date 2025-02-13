@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 
+//Middleware to verify token
 const verifyToken = (req, res, next) => {
   const token = req.headers['authorization']?.split(' ')[1];
 
@@ -178,7 +179,6 @@ router.get("/available_slots", async (req, res) => {
 
 
 //Appointment booking
-
 router.post("/book_appointment", async (req, res) => {
   const { user_id, date, time, reason, contact_no } = req.body;
 

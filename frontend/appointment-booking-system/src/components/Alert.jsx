@@ -4,6 +4,7 @@ import "../App.css";
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from "@headlessui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-toastify";
 
 const Alert = ({ onClose, appointmentId, onDeleteSuccess }) => {
   const [open, setOpen] = useState(true);
@@ -25,13 +26,13 @@ const Alert = ({ onClose, appointmentId, onDeleteSuccess }) => {
       });
 
       if (response.data.success) {
-        alert("Appointment deleted successfully!");
+        toast.success("Appointment deleted successfully!");
         setOpen(false);
         onDeleteSuccess(); 
       }
     } catch (error) {
       console.error("Error deleting appointment:", error);
-      alert(error.response?.data?.error || "Failed to delete appointment.");
+      toast.error("Failed to delete appointment.");
     } finally {
       setLoading(false);
     }

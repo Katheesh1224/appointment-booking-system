@@ -38,7 +38,7 @@ const SignUp = () => {
                         if (err.response?.status === 400) {
                         setIsValid(false); 
                         }
-                        toast.error(errorMessage);
+                        toast.error("This email is already in use.");
                     } finally {
                         setIsLoading(false);
                     }
