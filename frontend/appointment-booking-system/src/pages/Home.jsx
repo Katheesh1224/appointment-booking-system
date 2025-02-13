@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import '../App.css'; 
-import Profile from '../components/profile/Profile.jsx';
 import Body from '../components/body/Body.jsx';
 import { useNavigate } from 'react-router-dom';
-
-
+import Header from '../components/header/Header.jsx';
 
 const Home = () => {
 
@@ -26,7 +24,7 @@ const Home = () => {
   
     return (
         <div className="container">
-            <Profile/>
+            <Header/>
             <Body/>
         </div>
     );

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './profile.css'; 
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import { toast } from 'react-toastify';
 
 
 const Profile = () => {
@@ -23,7 +23,7 @@ const Profile = () => {
             try {
               const response = await axios.get('http://localhost:5000/appointments/userdata', {
                 headers: {
-                  Authorization: `Bearer ${token}`, // Ensure it's prefixed with 'Bearer'
+                  Authorization: `Bearer ${token}`, 
                 },
               });
               
@@ -40,18 +40,19 @@ const Profile = () => {
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user_id');
+        toast.success('Logged out successfully');
         navigate('/'); 
       };
   
     return (
         <div className="profile">
-            <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" className="avatar"/>
+            <img src="./avatar.png" alt="Avatar" className="avatar"/>
             {error && <p>{error}</p>}
 
             {userData ? (
                 <div className='user-info'>
-                    <p>Username: {userData.username}</p>
-                    <p>Email: {userData.email}</p>
+                    <p>{userData.username}</p>
+                    <p>{userData.email}</p>
                 </div>
             ) : (
                 <p>Loading...</p>

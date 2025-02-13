@@ -2,17 +2,17 @@ import React, { useState } from 'react';
 import '../App.css';
 import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react';
 import axios from "axios";
+import { toast } from 'react-toastify';
+
 
 const Form = ({ slot, onClose }) => {
   const [open, setOpen] = useState(true);
   const [reason, setReason] = useState("");
   const [contact, setContact] = useState("");
 
-  // Assuming the user ID is stored in localStorage or use context for actual user
-  const userId = localStorage.getItem('user_id'); // Replace with actual user ID from your app
+  const userId = localStorage.getItem('user_id');
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
 
     if (!userId) {
         alert("User ID is required!");
@@ -32,15 +32,20 @@ const Form = ({ slot, onClose }) => {
         const response = await axios.post("http://localhost:5000/appointments/book_appointment", appointmentData);
 
         if (response.status === 201) {
-            alert("Appointment booked successfully!");
-            onClose();  // Close modal
+            toast.success("Appointment booked successfully!");
+            onClose();  
         }
     } catch (error) {
         console.error("Error booking appointment:", error.response?.data || error.message);
-        alert("Error booking appointment. Please try again.");
+        toast.error("Error booking appointment. Please try again.");
     }
 };
 
+const handleKeyDown = (event) => {
+  if (event.key === "Enter") {
+    handleSubmit();
+  }
+};
 
   return (
     <Dialog open={open} onClose={setOpen} className="relative z-10">
@@ -96,6 +101,7 @@ const Form = ({ slot, onClose }) => {
                         placeholder="Contact Number"
                         value={contact}
                         onChange={(e) => setContact(e.target.value)}
+                        onKeyDown={handleKeyDown}
                         required
                         className="block w-full rounded-md border border-gray-300 bg-white px-3 py-1.5 text-base text-gray-900 placeholder:text-gray-400 focus:outline-indigo-600 sm:text-sm/6"
                       />

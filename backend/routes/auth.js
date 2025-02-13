@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 const pool = require('../config/db');
 const router = express.Router();
 
+
+// User registration
 router.post('/signup', async (req, res) => {
   const { email, username, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -16,6 +18,8 @@ router.post('/signup', async (req, res) => {
   }
 });
 
+
+// User login
 router.post('/signin', async (req, res) => {
   const { email, password } = req.body; 
 
@@ -41,6 +45,8 @@ router.post('/signin', async (req, res) => {
   }
 });
 
+
+// User logout
 router.post('/logout', (req, res) => {
   const token = req.headers['authorization']?.split(' ')[1]; 
   console.log('API route reached'); 
@@ -60,6 +66,8 @@ router.post('/logout', (req, res) => {
   }
 });
 
+
+// Check if email is available
 router.get('/check-email', async (req, res) => {
   const { email } = req.query;
 

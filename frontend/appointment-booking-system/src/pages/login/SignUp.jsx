@@ -4,6 +4,8 @@ import axios from 'axios';
 import './login.css'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser, faKey, faCircleArrowRight, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { toast } from 'react-toastify';
+
 
 const SignUp = () => {
     const [email, setEmail] = useState("");
@@ -19,7 +21,7 @@ const SignUp = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const checkUsername = async () => {
+        const checkEmail = async () => {
             if (email) {
                 setIsLoading(true);
                 const timer = setTimeout(async () => {
@@ -36,6 +38,7 @@ const SignUp = () => {
                         if (err.response?.status === 400) {
                         setIsValid(false); 
                         }
+                        toast.error(errorMessage);
                     } finally {
                         setIsLoading(false);
                     }
@@ -47,7 +50,7 @@ const SignUp = () => {
             }
         };
     
-        checkUsername();
+        checkEmail();
     }, [email]);
 
     const handleSignUp = async () => {
@@ -55,19 +58,27 @@ const SignUp = () => {
         setErrorMessage("");
 
         if (password !== confirmPassword) {
-        setErrorMessage("Passwords do not match.");
-        setIsLoading(false);
-        return;
+            setErrorMessage("Passwords do not match.");
+            setIsLoading(false);
+            toast.warn("Passwords do not match.");
+            return;
         }
 
         try {
-        await axios.post("http://localhost:5000/auth/signup", { email, username, password });
-        navigate('/');  
+            await axios.post("http://localhost:5000/auth/signup", { email, username, password });
+            navigate('/');
+            toast.success("Registration successful!");  
         } catch (error) {
-        setErrorMessage(error.response?.data?.error || "Registration failed");
+            setErrorMessage(error.response?.data?.error || "Registration failed");
+            toast.error(errorMessage);
         }
-
         setIsLoading(false);
+    };
+
+    const handleKeyDown = (event) => {
+        if (event.key === "Enter") {
+            handleSignUp();
+        }
     };
 
     return (
@@ -75,21 +86,8 @@ const SignUp = () => {
             <div className="login">
                 <div className="textbox">
                     <input 
-                    type="text" 
-                    className={` ${username ? "has-value" : ""} ${isValid ? "valid" : ""}`} 
-                    value={username} 
-                    onChange={(e) => setUsername(e.target.value)} 
-                    required
-                    />
-                    <span className="icon"><FontAwesomeIcon icon={faCircleUser} size="sm" /></span>
-                    <label>Username</label>
-                    <span className={`spinner ${isLoading ? "visible" : ""}`}></span>
-                </div>
-
-                <div className="textbox">
-                    <input 
                     type="email" 
-                    className={` ${email ? "has-value" : ""} ${isValid ? "valid" : ""}`} 
+                    className={` ${email ? "had-value" : ""} ${isValid ? "valid" : ""}`} 
                     value={email} 
                     onChange={(e) => setEmail(e.target.value)} 
                     onKeyDown={() => setIsTyping(true)} 
@@ -97,21 +95,46 @@ const SignUp = () => {
                     />
                     <span className="icon"><FontAwesomeIcon icon={faEnvelope} size="sm" /></span>
                     <label>Email</label>
+                    <span className={`spinner ${isLoading ? "visible" : ""}`}></span>
                 </div>
 
                 <div className="textbox">
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
+                    <input 
+                    type="text" 
+                    className={` ${username ? "has-value" : ""} `} 
+                    value={username} 
+                    onChange={(e) => setUsername(e.target.value)} 
+                    required
+                    />
+                    <span className="icon"><FontAwesomeIcon icon={faCircleUser} size="sm" /></span>
+                    <label>Username</label>
+                </div>
+
+
+                <div className="textbox">
+                    <input 
+                    type="password" 
+                    className={`${password ? "has-value" : ""}`}
+                    value={password} 
+                    onChange={(e) => setPassword(e.target.value)} 
+                    required/>
                     <span className="icon"><FontAwesomeIcon icon={faKey} size="xs" /></span>
                     <label>Password</label>
                 </div>
 
                 <div className="textbox">
-                    <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required/>
+                    <input 
+                    type="password" 
+                    className={`${confirmPassword ? "has-value" : ""}`}
+                    value={confirmPassword} 
+                    onChange={(e) => setConfirmPassword(e.target.value)} 
+                    onKeyDown={handleKeyDown}
+                    required/>
                     <span className="icon"><FontAwesomeIcon icon={faKey} size="xs" /></span>
                     <label>Confirm Password</label>
                 </div>
 
-                <button className="signin-button" disabled={!isValid} onClick={handleSignUp}>
+                <button className="signin-button" disabled={!isValid || !username || !password} onClick={handleSignUp}>
                 <p>Sign Up</p>
                 <span><FontAwesomeIcon icon={faCircleArrowRight} size="lg"/></span>
                 </button>

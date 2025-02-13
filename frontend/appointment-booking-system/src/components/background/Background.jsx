@@ -1,6 +1,5 @@
 import './background.css'; 
 
-
 const Background = () => {
 
     return (

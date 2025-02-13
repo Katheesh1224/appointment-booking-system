@@ -18,24 +18,53 @@ body{
 
 .container{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 90vh;
   width: 80vw;
   background-color: #ffffff87;
   left: 10vw;
-  top: 5vh;
+  top: 2.5vh;
   position: absolute;
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
 
-@media (max-width: 942px) {
+.footer {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  background-color: rgb(0, 0, 0);
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  justify-content: center;
+  position: fixed;
+  z-index: 100;
+} 
+
+.footer p {
+  color: #fffdfd;
+  font-size:  13px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.footer a {
+  color: #6f6bf0;
+  font-weight: 600;
+}
+
+.footer a:hover {
+  color: #2521a5;
+}
+
+@media (max-width: 740px) {
   .container {
       flex-direction: column;
-      width: 90vw; 
+      width: 85vw; 
       height: auto; 
       padding: 10px;
   }

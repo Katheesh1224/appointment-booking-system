@@ -5,12 +5,15 @@ import Form from "../../components/AppointmentForm";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAnglesLeft } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from "react-router-dom";
-
+import AppointmentEditForm from "../../components/AppointmentEditForm";
 
 const Calendar = () => {
     const [slots, setSlots] = useState([]);
     const [showForm, setShowForm] = useState(false);
     const [selectedSlot, setSelectedSlot] = useState(null);
+    const [showEditForm, setShowEditForm] = useState(false);
+    const [selectedAppointment, setSelectedAppointment] = useState(null);
+
     const user_id = localStorage.getItem("user_id");
     const navigate = useNavigate();
 
@@ -27,23 +30,36 @@ const Calendar = () => {
     useEffect(() => {
         fetchSlots();
     }, []);
+
+    useEffect(() => {
+        if (showEditForm) {
+        }
+    }, [showEditForm, selectedAppointment]);
+    
     
     const handleSlotClick = (slot) => {
-        if (slot.status === "available") {
+        if (slot.status === "booked" && slot.user_id == user_id) {
+            setSelectedSlot(slot);
+            setSelectedAppointment(slot); 
+            setShowEditForm(true);
+            setShowForm(false); 
+        } else if (slot.status === "available") {
             setSelectedSlot(slot);
             setShowForm(true);
+            setShowEditForm(false); 
         }
     };
+    
 
     return (
         <div className="container">
             <div className="c-header">
+                <button className="previous" onClick={() => navigate('/home')}><span><FontAwesomeIcon icon={faAnglesLeft} /></span>Previous</button>
                 <h1>Book your appointment</h1>
             </div>
             <div className="appointment-body">
                 <div className="appointment-header">
-                    <button className="previous" onClick={() => navigate('/home')}><span><FontAwesomeIcon icon={faAnglesLeft} /></span>Previous</button>
-                    <h2>You can only book for the next five days</h2>
+                    <h2>You can only book for the next seven days</h2>
                 </div>
                 <div className="calendar">
                 <div className="time">
@@ -77,7 +93,7 @@ const Calendar = () => {
                                                     ? "Available"
                                                     : slot.status === "unavailable"
                                                     ? "Unavailable"
-                                                    : slot.reason} {/* Show reason if booked */}
+                                                    : slot.reason} 
                                             </td>
                                         ))}
                                 </tr>
@@ -87,7 +103,10 @@ const Calendar = () => {
                     </table>
                 </div>
             </div>
+            
+            {showEditForm && selectedAppointment && <AppointmentEditForm appointment={selectedAppointment} onClose={() => setShowEditForm(false)} />}
             {showForm && <Form slot={selectedSlot} onClose={() => setShowForm(false)} />}
+                
         </div>
     );
 };

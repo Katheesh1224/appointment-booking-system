@@ -1,58 +1,76 @@
-import React from 'react';
-import '../App.css'; 
-import { useState } from 'react'
-import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import React, { useState } from "react";
+import axios from "axios";
+import "../App.css";
+import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from "@headlessui/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 
-const Alert = () => {
+const Alert = ({ onClose, appointmentId, onDeleteSuccess }) => {
+  const [open, setOpen] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-    const [open, setOpen] = useState(true)
+  const handleDeleteAppointment = async () => {
+    setLoading(true);
 
-  
-    return (
-        <Dialog open={open} onClose={setOpen} className="relative z-10">
-      <DialogBackdrop
-        transition
-        className="fixed inset-0 bg-gray-500/75 transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in"
-      />
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("User not authenticated");
+        setLoading(false);
+        return;
+      }
+
+      const response = await axios.delete(`http://localhost:5000/appointments/delete/${appointmentId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (response.data.success) {
+        alert("Appointment deleted successfully!");
+        setOpen(false);
+        onDeleteSuccess(); 
+      }
+    } catch (error) {
+      console.error("Error deleting appointment:", error);
+      alert(error.response?.data?.error || "Failed to delete appointment.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <Dialog open={open} onClose={() => setOpen(false)} className="relative z-10">
+      <DialogBackdrop className="fixed inset-0 bg-gray-500/75 transition-opacity" />
 
       <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-        <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-          <DialogPanel
-            transition
-            className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-lg data-closed:sm:translate-y-0 data-closed:sm:scale-95"
-          >
-            <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-              <div className="sm:flex sm:items-start">
-                <div className="mx-auto flex size-12 shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:size-10">
-                <FontAwesomeIcon icon={faTriangleExclamation} style={{color: "#f33030",}} />                </div>
-                <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                  <DialogTitle as="h3" className="text-base font-semibold text-gray-900">
-                    Deactivate account
-                  </DialogTitle>
-                  <div className="mt-2">
-                    <p className="text-sm text-gray-500">
-                      Are you sure you want to Cancel your appointment? All of your data will be permanently removed.
-                      This action cannot be undone.
-                    </p>
-                  </div>
-                </div>
+        <div className="flex min-h-full items-center justify-center p-4">
+          <DialogPanel className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center justify-center w-12 h-12 bg-red-100 rounded-full">
+                <FontAwesomeIcon icon={faTriangleExclamation} className="text-red-500 text-xl" />
+              </div>
+              <div>
+                <DialogTitle className="text-lg font-semibold text-gray-900">
+                  Cancel Appointment
+                </DialogTitle>
+                <p className="text-sm text-gray-500 mt-2">
+                  Are you sure you want to cancel your appointment? This action cannot be undone.
+                </p>
               </div>
             </div>
-            <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+
+            <div className="flex justify-end mt-6 space-x-2">
               <button
                 type="button"
-                onClick={() => setOpen(false)}
-                className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500 sm:ml-3 sm:w-auto"
+                disabled={loading}
+                onClick={handleDeleteAppointment}
+                className="px-4 py-2 text-sm font-semibold text-white bg-red-600 rounded hover:bg-red-500"
               >
-                Delete Appointment
+                {loading ? "Deleting..." : "Delete Appointment"}
               </button>
               <button
                 type="button"
-                data-autofocus
-                onClick={() => setOpen(false)}
-                className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                onClick={onClose}
+                className="px-4 py-2 text-sm font-semibold text-gray-900 bg-gray-200 rounded hover:bg-gray-300"
               >
                 Cancel
               </button>
@@ -61,7 +79,7 @@ const Alert = () => {
         </div>
       </div>
     </Dialog>
-    );
+  );
 };
-      
+
 export default Alert;

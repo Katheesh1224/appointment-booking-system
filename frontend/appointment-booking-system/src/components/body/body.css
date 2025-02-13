@@ -1,51 +1,27 @@
 .body{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex: 2;
     align-items: center;
     justify-content: center;
-
-    .welcome-container{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 10px;
-        margin: 10px 0 5px 10px;
-        background-color: white;
-        width: calc(80vw - 80vw/3);
-        height: calc(90vh - 60vh - 20px);
-        border-radius: 10px;
-
-        img{
-            width: 300px;
-            height: 100px;
-            margin-bottom: 10px;
-        }
-
-        h1{
-            font-size: 1.5em;
-            margin: 10px 60px;
-            text-align: center;
-        }
-
-    }
+    width: 100%;
 
     .appointment-container{
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 10px;
-        margin: 5px 0 10px 10px;
+        padding: 10px 10px 20px 10px;
+        margin: 10px 0 0 10px;
         background-color: white;
-        width: calc(80vw - 80vw/3);
+        width: calc(80vw - 22vw);
         height: calc(90vh - 90vh/3 - 10px);
         border-radius: 10px;
 
         .header{
             padding: 20px 0;
             width: 45vw;
+            flex: 1;
 
             h2{
                 font-size: 1em;
@@ -57,38 +33,48 @@
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
-            padding: 20px 0;
+            padding: 5px 0;
             border-bottom: 1px solid rgba(0, 0, 0, 0.200);
-            width: 45vw;            
-
-            .date{
+            width: 45vw;    
+            flex: 2;  
+            
+            .appointment-details{
                 display: flex;
-                flex-direction: column;
-                align-items: left;
-                justify-content: left;
-                flex: 1;
-                font-size: 0.8em;
-                color: rgba(0, 0, 0, 0.80);
-            }
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+            
 
-            .reason{
-                display: flex;
-                flex-direction: column;
-                align-items: left;
-                justify-content: left;
-                flex: 2;
-                font-size: 0.8em;
-            }
+                .date{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: left;
+                    justify-content: left;
+                    /* flex: 1; */
+                    font-size: 0.8em;
+                    color: rgba(0, 0, 0, 0.80);
+                }
 
-            .time{
-                display: flex;
-                flex-direction: column;
-                align-items: end;
-                justify-content: end;
-                flex: 1;
-                font-size: 0.8em; 
-                color: rgba(0, 0, 0, 0.80); 
-                margin-right: 15px;          
+                .reason{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: left;
+                    justify-content: left;
+                    /* flex: 2; */
+                    font-size: 0.8em;
+                }
+
+                .time{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: end;
+                    justify-content: end;
+                    /* flex: 1; */
+                    font-size: 0.8em; 
+                    color: rgba(0, 0, 0, 0.80); 
+                    margin-right: 15px;          
+                }
             }
         }
 
@@ -108,10 +94,14 @@
 
 
 
-@media (max-width: 942px) {
-    .welcome-container,
+@media (max-width: 740px) {
+    .body{
+        flex-direction: column;
+        width: 100%;
+    }
+
     .appointment-container {
-        width: 90vw; 
+        width: 70vw; 
         height: auto; 
         padding: 15px;
     }
@@ -146,50 +136,8 @@
     }
 
     .add-button {
-        width: 250px; 
+        width: 10px; 
         height: 35px;
         font-size: 0.9em;
-    }
-}
-
-@media (max-width: 480px) {
-    .welcome-container,
-    .appointment-container {
-        width: 95vw;
-        padding: 10px;
-    }
-
-    .welcome-container img {
-        width: 200px;
-        height: 70px;
-    }
-
-    .welcome-container h1 {
-        font-size: 1em;
-        margin: 5px 20px;
-    }
-
-    .appointment-container .header {
-        width: 100%;
-        text-align: center;
-    }
-
-    .appointment {
-        flex-direction: column;
-        width: 95vw;
-        padding: 5px 0;
-    }
-
-    .appointment .date,
-    .appointment .reason,
-    .appointment .time {
-        font-size: 0.8em;
-        text-align: center;
-    }
-
-    .add-button {
-        width: 200px;
-        height: 30px;
-        font-size: 0.85em;
     }
 }

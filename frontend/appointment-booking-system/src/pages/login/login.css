@@ -67,7 +67,7 @@
     transition: 0.3s;
   }
   
-  .textbox > input.valid.has-value {
+  .textbox > input.valid.had-value {
     border-color: #14ca99;
   }
   
@@ -75,15 +75,15 @@
     border-color: #000000;
   }
   
-  .textbox > input.has-value {
+  .textbox > input.had-value {
     border-color: #ff5360;
   }
   
-  .textbox > :is(input:focus, .has-value) ~ span {
+  .textbox > :is(input:focus, .has-value, .had-value) ~ span {
     color: #000000;
   }
   
-  .textbox > :is(input:focus, .has-value) ~ label {
+  .textbox > :is(input:focus, .has-value, .had-value) ~ label {
     background: #ffffff;
     color: rgb(0, 0, 0);
     translate: -42px -42px;

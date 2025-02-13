@@ -6,9 +6,10 @@
     justify-content: center;
     background-color: rgb(255, 255, 255);
     padding: 10px;
+    margin: 10px 0 0 0;
     border-radius: 10px;
-    width: calc(80vw - 80vw/3 - 30px);
-    height: calc(90vh - 20px);
+    width: calc(80vw - 60vw);
+    height: calc(90vh - 90vh/3 - 10px);
 
     img{
         width: 200px;
@@ -45,34 +46,34 @@
 
 
 
-@media (max-width: 942px) {
+@media (max-width: 740) {
     .profile {
-        width: auto; 
+        width: 70vw; 
         height: auto; 
         padding: 20px;
     }
 
     .profile img {
-        width: 150px; 
-        height: 150px;
-    }
-
-    .profile h1 {
-        font-size: 1.5em; 
+        width: 100px; 
+        height: 100px;
     }
 
     .profile p {
-        font-size: 1em;
+        font-size: 0.8em;
+    }
+
+    .user-info p {
+        margin-bottom: 0;
     }
 
     .profile button {
         width: 80px; 
-        height: 35px;
-        font-size: 0.9em;
+        height: 30px;
+        font-size: 0.8em;
     }
 }
 
-@media (max-width: 480px) {
+/* @media (max-width: 480px) {
     .profile {
         width: 95vw; 
         padding: 15px;
@@ -96,4 +97,4 @@
         height: 30px;
         font-size: 0.85em;
     }
-}
+} */
