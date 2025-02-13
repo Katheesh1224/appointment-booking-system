@@ -67,18 +67,18 @@ API Endpoints:
 
 Authentication
 Method	  Endpoint	          Description
-POST	  /auth/signup	      User registration
-POST	  /auth/signin	      User login
-POST    /auth/logout        User logout 
-GET    /auth/check-email    check user email exist or not
+-POST	  /auth/signup	      User registration
+-POST	  /auth/signin	      User login
+-POST    /auth/logout        User logout 
+-GET    /auth/check-email    check user email exist or not
 
 Appointments
 Method	          Endpoint	                                        Description
-GET       /appointments/userdata                                Get user details 
-GET	      /appointments/appointment_data	                      Get user’s booked appointments
-PUT	      /appointments/edit_appointment/:appointment_id	      Get user’s booked appointments
-DELETE	  /appointments/delete/:appointment_id	                Cancel an appointment
-GET	      /appointments/available_slots	                        Get available, booked and unavailable slots
+-GET       /appointments/userdata                                Get user details 
+-GET	      /appointments/appointment_data	                      Get user’s booked appointments
+-PUT	      /appointments/edit_appointment/:appointment_id	      Get user’s booked appointments
+-DELETE	  /appointments/delete/:appointment_id	                Cancel an appointment
+-GET	      /appointments/available_slots	                        Get available, booked and unavailable slots
 POST	    /appointments/book_appointment	                      Book an appointment
 
 
