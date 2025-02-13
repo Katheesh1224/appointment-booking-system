@@ -1,6 +1,7 @@
-Appointment Booking System  
+### **Appointment Booking System**  
 
-Project Overview  
+Project Overview
+
 The Appointment Booking System allows users to:  
 ✅ View available time slots.  
 ✅ Book an appointment.  
@@ -79,7 +80,7 @@ Method	          Endpoint	                                        Description
 -PUT	      /appointments/edit_appointment/:appointment_id	      Get user’s booked appointments
 -DELETE	  /appointments/delete/:appointment_id	                Cancel an appointment
 -GET	      /appointments/available_slots	                        Get available, booked and unavailable slots
-POST	    /appointments/book_appointment	                      Book an appointment
+-POST	    /appointments/book_appointment	                      Book an appointment
 
 
 
